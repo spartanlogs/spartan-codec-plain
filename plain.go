@@ -5,6 +5,7 @@ import (
 
 	"github.com/spartanlogs/spartan/codecs"
 	"github.com/spartanlogs/spartan/event"
+	"github.com/spartanlogs/spartan/utils"
 )
 
 // The PlainCodec reads plaintext with no delimiting between events
@@ -14,7 +15,7 @@ func init() {
 	codecs.Register("plain", newPlainCodec)
 }
 
-func newPlainCodec() (codecs.Codec, error) {
+func newPlainCodec(options utils.InterfaceMap) (codecs.Codec, error) {
 	return &PlainCodec{}, nil
 }
 
