@@ -1,15 +1,15 @@
 package codecs
 
 import (
-	"io"
-
 	"github.com/spartanlogs/spartan/codecs"
 	"github.com/spartanlogs/spartan/event"
 	"github.com/spartanlogs/spartan/utils"
 )
 
 // The PlainCodec reads plaintext with no delimiting between events
-type PlainCodec struct{}
+type PlainCodec struct {
+	codecs.BaseCodec
+}
 
 func init() {
 	codecs.Register("plain", newPlainCodec)
@@ -24,13 +24,7 @@ func (c *PlainCodec) Encode(e *event.Event) []byte {
 	return []byte(e.String())
 }
 
-// EncodeWriter reads events from in and writes them to w
-func (c *PlainCodec) EncodeWriter(w io.Writer, in <-chan *event.Event) {}
-
 // Decode creates a new event with message set to data.
 func (c *PlainCodec) Decode(data []byte) (*event.Event, error) {
 	return event.New(string(data)), nil
 }
-
-// DecodeReader reads from r and creates an event sent to out
-func (c *PlainCodec) DecodeReader(r io.Reader, out chan<- *event.Event) {}
